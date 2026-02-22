@@ -1,16 +1,63 @@
-# React + Vite
+# Nimble Gravity — Frontend Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Challenge técnico realizado en **React** como parte del proceso de selección para el rol de **Junior Fullstack Developer** en [Nimble Gravity](https://nimblegravity.com/es).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Autor
 
-## React Compiler
+**Mateo Cima Crucet**
+(https://github.com/CimaMateo/ChallengeNimble)
+(https://www.linkedin.com/in/mateo-cima)
+(https://portafoliocimamateo.vercel.app/)
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## Descripción
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Mini aplicación en React que se conecta a la API de Nimble Gravity para:
+
+1. Obtener los datos del candidato a partir de su email
+2. Listar las posiciones abiertas disponibles
+3. Enviar la postulación a la posición seleccionada con la URL del repositorio
+
+---
+
+## Tecnologías
+
+- **React** + **Vite**
+- CSS
+- Fetch API para las llamadas HTTP
+
+---
+
+## Estructura del proyecto
+
+```
+src/
+├── Api.js                  # Llamadas a la API centralizadas
+├── App.jsx                 # Componente raíz
+├── App.css                 # Estilos globales
+├── components/
+│   ├── Header.jsx          # Barra de navegación
+│   ├── Hero.jsx            # Sección hero
+│   ├── CandidateStep.jsx   # verificación de email
+│   ├── JobsStep.jsx        # listado de posiciones
+│   └── JobCard.jsx         # Card individual de cada posición
+└── hooks/
+    ├── useCandidate.js     # Hook para obtener datos del candidato
+    ├── useJobs.js          # Hook para listar posiciones
+    └── useJobSubmit.js     # Hook para enviar la postulación
+```
+
+---
+
+## Funcionalidades implementadas
+
+- Verificación de candidato por email vía API
+- Listado dinámico de posiciones abiertas
+- Input de URL de repositorio por posición
+- Envío de postulación 
+- Manejo de estados de carga y error en toda la UI
+- Diseño inspirado en el sitio oficial de Nimble Gravity
+- Responsive

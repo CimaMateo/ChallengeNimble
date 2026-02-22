@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Header } from "./components/Header";
+import { Hero }          from "./components/Hero";
+import { CandidateStep } from "./components/CandidateStep";
+import { JobsStep }      from "./components/JobsStep";
+
+import { useCandidate }  from "./hooks/useCandidate";
+import { useJobs }       from "./hooks/useJobs";
+import { useJobSubmit }  from "./hooks/useJobSubmit";
+
+export default function App() {
+  const [email, setEmail] = useState("");
+
+  const {
+    candidate,
+    loading:       candidateLoading,
+    error:         candidateError,
+    fetchCandidate,
+    reset:         resetCandidate,
+  } = useCandidate();
+
+  const {
+    jobs,
+    loading: jobsLoading,
+    error:   jobsError,
+  } = useJobs(candidate);
+
+  const { states: jobStates, submit: submitJob } = useJobSubmit();
+
+  const handleReset = () => {
+    resetCandidate();
+    setEmail("");
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <Header />
+      <Hero />
+      <div className="ng-section">
+        <CandidateStep
+          email={email}
+          setEmail={setEmail}
+          candidate={candidate}
+          loading={candidateLoading}
+          error={candidateError}
+          onFetch={fetchCandidate}
+          onReset={handleReset}
+        />
+        {candidate && (
+          <JobsStep
+            jobs={jobs}
+            loading={jobsLoading}
+            error={jobsError}
+            candidate={candidate}
+            jobStates={jobStates}
+            onSubmit={submitJob}
+          />
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
-
-export default App
